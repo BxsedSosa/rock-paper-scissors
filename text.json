@@ -1,0 +1,18 @@
+{
+ "en" : {
+   "intro" : "Rock, Paper, Scissors",
+   "questions" : {
+     "user-choice" : "Please pick a option:\n==> 1) Rock\n==> 2) Paper\n==> 3) Scissors"
+   },
+   "errors" : {
+     "user-choice" : "Please only enter the following:\n==> '1', 'r', 'rock' for Rock\n==> '2', 'p', 'paper' for Paper\n==> '3', 's', 'scissors' for Scissors"
+   },
+   "results" : {
+     "user-choice" : "You picked:",
+     "cpu-choice" : "Computer picked:",
+     "win" : "You Win!",
+     "lose": "You Lose!",
+     "tie" : "It's a Tie!"
+   }
+ } 
+}

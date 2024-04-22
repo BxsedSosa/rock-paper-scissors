@@ -1,5 +1,6 @@
 """Program Imports"""
 
+import json
 from os import system
 from random import randint
 
@@ -11,12 +12,17 @@ VALID_CHOICES = {
 
 VALID_WINS = (["rock", "scissors"], ["paper", "rock"], ["scissors", "paper"])
 
-language = "en"
+with open("text.json", "r", encoding="utf-8") as file:
+    MSG = json.load(file)
 
 
 def clear_console():
     """Clears console"""
     system("clear")
+
+
+def prompt(text):
+    return f"==> {text}"
 
 
 def random_choice():
@@ -41,8 +47,9 @@ def validate_choice(choice):
     else:
 
         while True:
+            """If choice is not valid it will check all the values in the VALID_CHOICES"""
             inner_choice = input("Try Again: \n").lower()
-            for key in VALID_CHOICES.keys():
+            for key in VALID_CHOICES:
                 for value in VALID_CHOICES[key]:
                     if inner_choice == value:
                         return validate_choice(inner_choice)
@@ -61,22 +68,26 @@ def get_winner(choice1, choice2):
     choices = [choice1, choice2]
     print("get_winner print:", choices)
     if choices in VALID_WINS:
-        return f"You win!"
+        return MSG[language]["results"]["win"]
     if choice1 == choice2:
-        return f"It's a tie"
+        return MSG[language]["results"]["tie"]
     else:
-        return f"You Lose"
+        return MSG[language]["results"]["lose"]
 
 
 def main():
     """Main Function"""
+
+    msg_user_choice = MSG[language]["results"]["user-choice"]
+    msg_cpu_choice = MSG[language]["results"]["cpu-choice"]
+
     clear_console()
-    p1 = ask_user_choice("What do you pick?\n")
-    cpu = get_cpu_choice()
-    print(f"P1 choose: {p1}")
-    print(f"CPU choose: {cpu}")
-    results = get_winner(p1, cpu)
-    print(results)
+    player1 = ask_user_choice(prompt(MSG[language]["questions"]["user-choice"]))
+    computer = get_cpu_choice()
+    results = get_winner(player1, computer)
+    print(prompt())
+    print(prompt(results))
 
 
+language = "en"
 main()
