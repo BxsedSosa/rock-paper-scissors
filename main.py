@@ -1,4 +1,4 @@
-CHOICES = ["rock", "paper", "scissors"]
+WEAPONS = ["rock", "paper", "scissors"]
 WIN_LOGIC = (["rock", "scissors"], ["paper", "rock"], ["scissors", "paper"])
 
 player1_choice = input("Choose for P1:")
