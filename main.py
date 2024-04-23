@@ -5,7 +5,7 @@ import sys
 
 from os import system
 from random import randint
-from pyfiglet import Figlet
+from pyfiglet import Figlet, re
 
 
 with open("text.json", "r", encoding="utf-8") as file:
@@ -14,7 +14,7 @@ with open("text.json", "r", encoding="utf-8") as file:
 
 def clear_console():
     """Clears console"""
-    system("clear")
+    system("clear||cls")
 
 
 def display_welcome():
@@ -47,7 +47,7 @@ def get_cpu_choice():
     return cpu_choice
 
 
-def validate_language():
+def ask_language():
     """Validates user input of language selection"""
     valid_language = ["en", "es"]
     selected_language = input(prompt(MSG["en"]["questions"]["select-lang"])).lower()
@@ -65,6 +65,8 @@ def validate_choice(choice):
     rock = answer[0][1][0]
     paper = answer[1][1][0]
     scissors = answer[2][1][0]
+    lizard = answer[3][1][0]
+    spock = answer[4][1][0]
 
     if choice in valid_choices["rock"]:
         return rock.capitalize()
@@ -74,6 +76,12 @@ def validate_choice(choice):
 
     if choice in valid_choices["scissors"]:
         return scissors.capitalize()
+
+    if choice in valid_choices["lizard"]:
+        return lizard.capitalize()
+
+    if choice in valid_choices["spock"]:
+        return spock.capitalize()
 
     while True:
         inner_choice = input(prompt(MSG[language]["errors"]["user-choice"])).lower()
@@ -90,17 +98,34 @@ def ask_user_choice(text):
     return user_choice
 
 
+def display_tally(winner):
+    score = {"user": 0, "computer": 0}
+
+    if winner == "user":
+        score["user"] += 1
+
+    if winner == "cpu":
+        score["computer"] += 1
+
+    print(prompt(MSG[language]["results"]["tally-user"]), score["user"])
+    print(prompt(MSG[language]["results"]["tally-cpu"]), score["computer"])
+
+
 def get_winner(choice1, choice2):
     """Checks who the winner is"""
     valid_wins = list(MSG[language]["wins"].values())
     choices = [choice1, choice2]
 
-    if choices in valid_wins:
-        return MSG[language]["results"]["win"]
+    for wins in valid_wins:
+        for win in wins:
+            if choices == win:
+                display_tally("user")
+                return MSG[language]["results"]["win"]
 
     if choice1 == choice2:
         return MSG[language]["results"]["tie"]
 
+    display_tally("cpu")
     return MSG[language]["results"]["lose"]
 
 
@@ -137,7 +162,7 @@ def main():
 
 clear_console()
 display_welcome()
-language = validate_language()
+language = ask_language()
 
 while True:
 
