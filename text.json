@@ -8,7 +8,7 @@
    },
    "errors" : {
      "select-lang": "Please select only:\n==> 'en' or 'es'\n",
-     "user-choice" : "Please only enter the following:\n==> '1', 'r', 'rock' for Rock\n==> '2', 'p', 'paper' for Paper\n==> '3', 's', 'scissors' for Scissors\n",
+     "user-choice" : "Please only enter the following:\n==> '1' or 'rock' for Rock\n==> '2' or 'paper' for Paper\n==> '3' or 'scissors' for Scissors\n",
      "retry" : "Please only enter:\n==> Yes or Y\n==> No or N\n"
    },
    "results" : {
@@ -19,20 +19,42 @@
      "tie" : "It's a Tie!\n"
    },
    "choices" : {
-     "rock" : "Rock",
-     "paper" : "Paper",
-     "scissors" : "Scissors"
+     "rock" : ["rock", "1"],
+     "paper" : ["paper", "2"],
+     "scissors" : ["scissors", "3"],
+     "lizard" : ["lizard", "4"],
+     "spock" : ["spock", "5"]
+   },
+   "wins" : {
+     "rock-win" : ["Rock", "Scissors"],
+     "paper-win": ["Paper", "Rock"],
+     "scissor-win" : ["Scissors", "Paper"]
+   },
+   "retry": {
+     "valid-retry" : ["y", "yes", "n", "no"],
+     "yes" : ["yes", "y"],
+     "no" : ["no", "n"]
+   },
+   "exit" : {
+     "thank" : "Thank you for using RPS!",
+     "close" : "The program is closing..."
    }
  },
+
  "es" : {
    "intro" : "Piedra Papel tijeras",
    "questions" : {
-     "user-choice" : "Por favor elige una opción:\n==> 1) Rock\n==> 2) Paper\n==> 3) Scissors\n",
-     "retry": "¿Quieres volver a intentarlo?\n==> Escribe 'Sí' (Y) para continuar\n==> Escribe 'No' (N) para salir\n"
+     "user-choice" : "Por favor elige una opción:\n==> 1) Roca\n==> 2) Papen\n==> 3) Tijeras\n",
+     "retry": "¿Quieres volver a intentarlo?\n==> Escribe 'Sí' (S) para continuar\n==> Escribe 'No' (N) para salir\n"
    },
    "errors" : {
-     "user-choice" : "Por favor, introduzca únicamente lo siguiente:\n==> '1', 'r', 'rock' para Rock\n==> '2', 'p', 'paper' para Paper\n==> '3' , 's', 'tijeras' para Tijeras\n",
-     "retry" : "Por favor, introduzca únicamente:\n==> Sí o Y\n==> No o N\n"
+     "user-choice" : "Por favor, introduzca únicamente lo siguiente:\n==> '1' or 'Roca' para Roca\n==> '2' or 'Papel' para Papel\n==> '3' or 'tijeras' para Tijeras\n",
+     "retry" : "Por favor, introduzca únicamente:\n==> Sí o S\n==> No o N\n"
+   },
+   "choices" : {
+     "rock" : ["roca", "1"],
+     "paper" : ["papel", "2"],
+     "scissors" : ["tijeras", "3"]
    },
    "results" : {
      "user-choice" : "Elegiste:",
@@ -40,6 +62,21 @@
      "win" : "¡Tú ganas!\n",
      "lose": "¡Pierdes!\n",
      "tie" : "¡Es un empate!\n"
+   },
+
+  "wins" : {
+     "rock-win" : ["Roca", "Tijeras"],
+     "paper-win": ["Papel", "Roca"],
+     "scissor-win" : ["Tijeras", "Papel"]
+   },
+  "retry": {
+     "valid-retry" : ["s", "si", "n", "no"],
+     "yes" : ["si", "s"],
+     "no" : ["no", "n"]
+   },
+   "exit" : {
+     "thank" : "¡Gracias por usar RPS!",
+     "close" : "El programa se cierra..."
    }
  }
 }
