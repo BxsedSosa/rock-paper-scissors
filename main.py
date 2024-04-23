@@ -38,7 +38,7 @@ def prompt(text):
 
 def get_random_choice():
     """Gets random number for picking choice"""
-    return randint(1, 3)
+    return randint(1, 5)
 
 
 def get_cpu_choice():
