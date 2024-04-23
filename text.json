@@ -26,9 +26,11 @@
      "spock" : ["spock", "5"]
    },
    "wins" : {
-     "rock-win" : ["Rock", "Scissors"],
-     "paper-win": ["Paper", "Rock"],
-     "scissor-win" : ["Scissors", "Paper"]
+     "rock-win" : [["Rock", "Scissors"], ["Rock", "Lizard"]],
+     "paper-win": [["Paper", "Rock"], ["Paper", "Spock"]],
+     "scissor-win" : [["Scissors", "Paper"], ["Scissors", "Lizard"]],
+     "lizard-win" : [["Lizard", "Spock"], ["Lizard", "Paper"]],
+     "spock-win" : [["Spock", "Scissors"],["Spock", "Rock"]]
    },
    "retry": {
      "valid-retry" : ["y", "yes", "n", "no"],
@@ -65,10 +67,12 @@
    },
 
   "wins" : {
-     "rock-win" : ["Roca", "Tijeras"],
-     "paper-win": ["Papel", "Roca"],
-     "scissor-win" : ["Tijeras", "Papel"]
-   },
+     "rock-win" : [["Roca", "Tijeras"], ["Roca", "Lagarto"]],
+     "paper-win": [["Papel", "Roca"], ["Papel", "Spock"]],
+     "scissor-win" : [["Tijeras", "Papel"], ["Tijaeras", "Lagarto"]],
+     "lizard-win" : [["Lagarto", "Spock"], ["Lagarto", "Papel"]],
+     "spock-win" : [["Spock", "Tijeras"],["Spock", "Roca"]]
+  },
   "retry": {
      "valid-retry" : ["s", "si", "n", "no"],
      "yes" : ["si", "s"],

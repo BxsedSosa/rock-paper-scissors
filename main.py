@@ -60,24 +60,24 @@ def validate_language():
 
 def validate_choice(choice):
     """Validates users and cpu input"""
-    valid_choice = MSG[language]["choices"]
+    valid_choices = MSG[language]["choices"]
     answer = list(MSG[language]["choices"].items())
     rock = answer[0][1][0]
     paper = answer[1][1][0]
     scissors = answer[2][1][0]
 
-    if choice in valid_choice["rock"]:
+    if choice in valid_choices["rock"]:
         return rock.capitalize()
 
-    if choice in valid_choice["paper"]:
+    if choice in valid_choices["paper"]:
         return paper.capitalize()
 
-    if choice in valid_choice["scissors"]:
+    if choice in valid_choices["scissors"]:
         return scissors.capitalize()
 
     while True:
         inner_choice = input(prompt(MSG[language]["errors"]["user-choice"])).lower()
-        for key in valid_choice.values():
+        for key in valid_choices.values():
             for value in key:
                 if inner_choice == value:
                     return validate_choice(inner_choice)
