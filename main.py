@@ -5,7 +5,7 @@ import sys
 
 from os import system
 from random import randint
-from pyfiglet import Figlet, re
+from pyfiglet import Figlet
 
 
 with open("text.json", "r", encoding="utf-8") as file:
@@ -98,19 +98,6 @@ def ask_user_choice(text):
     return user_choice
 
 
-def display_tally(winner):
-    score = {"user": 0, "computer": 0}
-
-    if winner == "user":
-        score["user"] += 1
-
-    if winner == "cpu":
-        score["computer"] += 1
-
-    print(prompt(MSG[language]["results"]["tally-user"]), score["user"])
-    print(prompt(MSG[language]["results"]["tally-cpu"]), score["computer"])
-
-
 def get_winner(choice1, choice2):
     """Checks who the winner is"""
     valid_wins = list(MSG[language]["wins"].values())
@@ -119,13 +106,11 @@ def get_winner(choice1, choice2):
     for wins in valid_wins:
         for win in wins:
             if choices == win:
-                display_tally("user")
                 return MSG[language]["results"]["win"]
 
     if choice1 == choice2:
         return MSG[language]["results"]["tie"]
 
-    display_tally("cpu")
     return MSG[language]["results"]["lose"]
 
 
