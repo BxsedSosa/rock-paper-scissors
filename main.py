@@ -10,7 +10,7 @@ VALID_CHOICES = {
     "scissors": ["3", "s", "scissors"],
 }
 
-VALID_WINS = (["rock", "scissors"], ["paper", "rock"], ["scissors", "paper"])
+VALID_WINS = (["Rock", "Scissors"], ["Paper", "Rock"], ["Scissors", "Paper"])
 
 with open("text.json", "r", encoding="utf-8") as file:
     MSG = json.load(file)
@@ -22,6 +22,7 @@ def clear_console():
 
 
 def prompt(text):
+    """Gives output with arrows to start"""
     return f"==> {text}"
 
 
@@ -39,55 +40,53 @@ def get_cpu_choice():
 def validate_choice(choice):
     """Validates users and cpu input"""
     if choice in VALID_CHOICES["rock"]:
-        return "rock"
-    elif choice in VALID_CHOICES["paper"]:
-        return "paper"
-    elif choice in VALID_CHOICES["scissors"]:
-        return "scissors"
-    else:
+        return "Rock"
 
-        while True:
-            """If choice is not valid it will check all the values in the VALID_CHOICES"""
-            inner_choice = input("Try Again: \n").lower()
-            for key in VALID_CHOICES:
-                for value in VALID_CHOICES[key]:
-                    if inner_choice == value:
-                        return validate_choice(inner_choice)
-                    else:
-                        continue
+    if choice in VALID_CHOICES["paper"]:
+        return "Paper"
+
+    if choice in VALID_CHOICES["scissors"]:
+        return "Scissors"
+
+    while True:
+        inner_choice = input(prompt(MSG[language]["errors"]["user-choice"])).lower()
+        for key in VALID_CHOICES.items():
+            for value in key[1]:
+                if inner_choice == value:
+                    return validate_choice(inner_choice)
 
 
 def ask_user_choice(text):
     """Asks user for input for choice"""
     user_choice = validate_choice(input(text).lower())
+    print()
     return user_choice
 
 
 def get_winner(choice1, choice2):
     """Gets results of if user wins/loses/ties"""
     choices = [choice1, choice2]
-    print("get_winner print:", choices)
+    msg_user_choice = MSG[language]["results"]["user-choice"]
+    msg_cpu_choice = MSG[language]["results"]["cpu-choice"]
+
     if choices in VALID_WINS:
-        return MSG[language]["results"]["win"]
+        result = MSG[language]["results"]["win"]
     if choice1 == choice2:
-        return MSG[language]["results"]["tie"]
+        result = MSG[language]["results"]["tie"]
     else:
-        return MSG[language]["results"]["lose"]
+        result = MSG[language]["results"]["lose"]
+
+    print(f"{prompt(msg_user_choice)} {choice1}\n==> {msg_cpu_choice} {choice2}")
+    print(prompt(result))
 
 
 def main():
     """Main Function"""
-
-    msg_user_choice = MSG[language]["results"]["user-choice"]
-    msg_cpu_choice = MSG[language]["results"]["cpu-choice"]
-
     clear_console()
     player1 = ask_user_choice(prompt(MSG[language]["questions"]["user-choice"]))
     computer = get_cpu_choice()
-    results = get_winner(player1, computer)
-    print(prompt())
-    print(prompt(results))
+    get_winner(player1, computer)
 
 
-language = "en"
+LANGUAGE = "en"
 main()
