@@ -1,8 +1,13 @@
 """Program Imports"""
 
 import json
+import sys
+
 from os import system
 from random import randint
+from pyfiglet import Figlet
+
+VALID_LANGUAGE = ["en", "es"]
 
 VALID_CHOICES = {
     "rock": ["1", "r", "rock"],
@@ -12,6 +17,8 @@ VALID_CHOICES = {
 
 VALID_WINS = (["Rock", "Scissors"], ["Paper", "Rock"], ["Scissors", "Paper"])
 
+VALID_RETRY = ["y", "yes"]
+
 with open("text.json", "r", encoding="utf-8") as file:
     MSG = json.load(file)
 
@@ -19,6 +26,20 @@ with open("text.json", "r", encoding="utf-8") as file:
 def clear_console():
     """Clears console"""
     system("clear")
+
+
+def display_welcome():
+    """Displays welcome to console"""
+    sign = Figlet(font="slant")
+    print(sign.renderText("Welcome"))
+    print("======================================================\n")
+
+
+def display_title():
+    """Display title to console"""
+    sign = Figlet(font="slant")
+    print(sign.renderText(MSG[language]["intro"]))
+    print("======================================================\n")
 
 
 def prompt(text):
@@ -35,6 +56,16 @@ def get_cpu_choice():
     """Gets random choice from cpu"""
     cpu_choice = validate_choice(str(random_choice()))
     return cpu_choice
+
+
+def validate_language():
+    """Validates user input of language selection"""
+    selected_language = input(prompt(MSG["en"]["questions"]["select-lang"])).lower()
+
+    while selected_language not in VALID_LANGUAGE:
+        selected_language = input(prompt(MSG["en"]["errors"]["select-lang"])).lower()
+
+    return selected_language
 
 
 def validate_choice(choice):
@@ -77,16 +108,38 @@ def get_winner(choice1, choice2):
         result = MSG[language]["results"]["lose"]
 
     print(f"{prompt(msg_user_choice)} {choice1}\n==> {msg_cpu_choice} {choice2}")
-    print(prompt(result))
+    return result
+
+
+def ask_retry():
+    """Gives user option to retry another game"""
+    valid_answer = ["y", "yes", "n", "no"]
+    user_answer = input(prompt(MSG[language]["questions"]["retry"])).lower()
+
+    while user_answer not in valid_answer:
+        user_answer = input(prompt(MSG[language]["errors"]["retry"])).lower()
+
+    return user_answer
 
 
 def main():
     """Main Function"""
-    clear_console()
     player1 = ask_user_choice(prompt(MSG[language]["questions"]["user-choice"]))
     computer = get_cpu_choice()
-    get_winner(player1, computer)
+    result = get_winner(player1, computer)
+    print(prompt(result))
 
 
-LANGUAGE = "en"
-main()
+clear_console()
+display_welcome()
+language = validate_language()
+
+while True:
+
+    clear_console()
+    display_title()
+    main()
+
+    retry = ask_retry()
+    if retry not in VALID_RETRY:
+        sys.exit()
